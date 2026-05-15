@@ -12,8 +12,46 @@
   }
 }
 
-.api-error {
-  display: block;
-  margin-top: 12px;
+.api-error-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin-top: 14px;
+  padding: 10px 12px;
+  border-radius: 4px;
+  background-color: #fdecea;
+  border: 1px solid #f5c6cb;
+  color: #b71c1c;
   font-size: 13px;
+  line-height: 1.4;
+
+  .error-icon {
+    font-size: 15px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 16px 12px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tax-year-note {
+  font-size: 12px;
+  color: #777;
+}
+
+.sars-link {
+  font-size: 12px;
+  color: #1565c0;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
