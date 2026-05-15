@@ -18,4 +18,8 @@ public class TaxCalculationRequest {
     @Min(value = 0, message = "age must be zero or positive")
     @Max(value = 130, message = "age must be 130 or less")
     private int age;
+
+    @Min(value = 0, message = "medicalAidMembers must be zero or positive")
+    @Max(value = 20, message = "medicalAidMembers must be 20 or less")
+    private int medicalAidMembers;
 }
