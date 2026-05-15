@@ -1,0 +1,72 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Your Tax Breakdown</mat-card-title>
+    <mat-card-subtitle>{{ bracketLabel }}</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+
+    <section class="result-section">
+      <h3 class="section-heading">Annual figures</h3>
+
+      <div class="result-row">
+        <span class="label">Gross Annual Income</span>
+        <span class="value">{{ result.grossAnnual | currency:'ZAR':'symbol-narrow':'1.2-2' }}</span>
+      </div>
+
+      <div class="result-row">
+        <span class="label">Taxable Income</span>
+        <span class="value">{{ result.taxableIncome | currency:'ZAR':'symbol-narrow':'1.2-2' }}</span>
+      </div>
+
+      <div class="result-row highlight">
+        <span class="label">Annual Income Tax</span>
+        <span class="value">{{ result.annualTax | currency:'ZAR':'symbol-narrow':'1.2-2' }}</span>
+      </div>
+
+      <div class="result-row" *ngIf="result.medicalAidCreditAnnual > 0">
+        <span class="label">Medical Aid Credit (annual)</span>
+        <span class="value credit">&#8722; {{ result.medicalAidCreditAnnual | currency:'ZAR':'symbol-narrow':'1.2-2' }}</span>
+      </div>
+
+      <div class="result-row">
+        <span class="label">Effective Tax Rate</span>
+        <span class="value">{{ result.effectiveTaxRate | number:'1.2-2' }}%</span>
+      </div>
+    </section>
+
+    <mat-divider></mat-divider>
+
+    <section class="result-section">
+      <h3 class="section-heading">Monthly figures</h3>
+
+      <div class="result-row">
+        <span class="label">Gross Monthly</span>
+        <span class="value">{{ result.grossAnnual / 12 | currency:'ZAR':'symbol-narrow':'1.2-2' }}</span>
+      </div>
+
+      <div class="result-row">
+        <span class="label">PAYE (monthly)</span>
+        <span class="value deduction">&#8722; {{ result.monthlyPaye | currency:'ZAR':'symbol-narrow':'1.2-2' }}</span>
+      </div>
+
+      <div class="result-row">
+        <span class="label">UIF (employee)</span>
+        <span class="value deduction">&#8722; {{ result.uifMonthly | currency:'ZAR':'symbol-narrow':'1.2-2' }}</span>
+      </div>
+
+      <div class="result-row" *ngIf="result.medicalAidCreditMonthly > 0">
+        <span class="label">Medical Aid Credit (monthly)</span>
+        <span class="value credit">Already applied to PAYE</span>
+      </div>
+
+      <mat-divider class="inner-divider"></mat-divider>
+
+      <div class="result-row net">
+        <span class="label">Net Monthly Take-Home</span>
+        <span class="value">{{ result.netMonthly | currency:'ZAR':'symbol-narrow':'1.2-2' }}</span>
+      </div>
+    </section>
+
+  </mat-card-content>
+</mat-card>
