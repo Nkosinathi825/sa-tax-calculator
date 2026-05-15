@@ -25,17 +25,21 @@ export class TaxFormComponent {
   }
 
   onSubmit(): void {
+    Object.values(this.form.controls).forEach(c => c.markAsTouched());
     if (this.form.invalid) return;
     this.loading = true;
     this.error = null;
     this.taxService.calculate(this.form.value).subscribe({
       next: result => {
         this.loading = false;
+        this.error = null;
         this.calculated.emit(result);
       },
-      error: () => {
+      error: err => {
         this.loading = false;
-        this.error = 'Could not reach the tax calculator API. Please ensure the backend is running.';
+        this.error = err.status === 400
+          ? 'Invalid input — please check your values and try again.'
+          : 'Could not reach the tax calculator. Please ensure the backend is running on port 8080.';
       }
     });
   }

@@ -1,7 +1,7 @@
 <mat-card>
   <mat-card-header>
     <mat-card-title>Calculate Your Tax</mat-card-title>
-    <mat-card-subtitle>2024/2025 tax year</mat-card-subtitle>
+    <mat-card-subtitle>2024 / 2025 tax year</mat-card-subtitle>
   </mat-card-header>
 
   <mat-card-content>
@@ -29,14 +29,26 @@
       </mat-form-field>
 
       <div class="actions">
-        <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid || loading">
+        <button mat-raised-button color="primary" type="submit" [disabled]="loading">
           <span *ngIf="!loading">Calculate</span>
           <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
         </button>
       </div>
 
-      <mat-error *ngIf="error" class="api-error">{{ error }}</mat-error>
+      <div *ngIf="error" class="api-error-banner">
+        <span class="error-icon">&#9888;</span> {{ error }}
+      </div>
 
     </form>
   </mat-card-content>
+
+  <mat-divider></mat-divider>
+
+  <mat-card-actions class="card-footer">
+    <span class="tax-year-note">Rates apply to the 2024/2025 SARS tax year</span>
+    <a href="https://www.sars.gov.za/tax-rates/income-tax/rates-of-tax-for-individuals/"
+       target="_blank"
+       rel="noopener"
+       class="sars-link">View SARS tax tables &#8599;</a>
+  </mat-card-actions>
 </mat-card>
