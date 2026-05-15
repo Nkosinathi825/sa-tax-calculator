@@ -15,8 +15,12 @@ public class TaxCalculationService {
     public TaxCalculationResponse calculate(TaxCalculationRequest request) {
         BigDecimal grossAnnual = request.getGrossAnnual();
         int age = request.getAge();
+        int medicalAidMembers = request.getMedicalAidMembers();
 
-        BigDecimal annualTax = computeAnnualTax(grossAnnual, age);
+        BigDecimal medicalCreditMonthly = computeMedicalAidCreditMonthly(medicalAidMembers);
+        BigDecimal medicalCreditAnnual = medicalCreditMonthly.multiply(TWELVE).setScale(2, RoundingMode.HALF_UP);
+
+        BigDecimal annualTax = computeAnnualTax(grossAnnual, age, medicalCreditAnnual);
         BigDecimal monthlyPaye = annualTax.divide(TWELVE, 2, RoundingMode.HALF_UP);
         BigDecimal uifMonthly = computeUif(grossAnnual);
         BigDecimal grossMonthly = grossAnnual.divide(TWELVE, 2, RoundingMode.HALF_UP);
@@ -33,12 +37,14 @@ public class TaxCalculationService {
                 .annualTax(annualTax)
                 .monthlyPaye(monthlyPaye)
                 .uifMonthly(uifMonthly)
+                .medicalAidCreditMonthly(medicalCreditMonthly)
+                .medicalAidCreditAnnual(medicalCreditAnnual)
                 .netMonthly(netMonthly.setScale(2, RoundingMode.HALF_UP))
                 .effectiveTaxRate(effectiveTaxRate)
                 .build();
     }
 
-    private BigDecimal computeAnnualTax(BigDecimal grossAnnual, int age) {
+    private BigDecimal computeAnnualTax(BigDecimal grossAnnual, int age, BigDecimal medicalCreditAnnual) {
         BigDecimal threshold = thresholdFor(age);
         if (grossAnnual.compareTo(threshold) <= 0) {
             return ZERO.setScale(2, RoundingMode.HALF_UP);
@@ -54,11 +60,23 @@ public class TaxCalculationService {
         BigDecimal grossTax = bracket.baseTax().add(marginalComponent);
 
         BigDecimal rebates = rebatesFor(age);
-        BigDecimal netTax = grossTax.subtract(rebates);
+        BigDecimal netTax = grossTax.subtract(rebates).subtract(medicalCreditAnnual);
 
         return netTax.compareTo(ZERO) < 0
                 ? ZERO.setScale(2, RoundingMode.HALF_UP)
                 : netTax.setScale(2, RoundingMode.HALF_UP);
+    }
+
+    BigDecimal computeMedicalAidCreditMonthly(int members) {
+        if (members <= 0) return ZERO.setScale(2, RoundingMode.HALF_UP);
+        BigDecimal monthly = SarsTaxTables.MEDICAL_CREDIT_MAIN_MEMBER;
+        if (members >= 2) monthly = monthly.add(SarsTaxTables.MEDICAL_CREDIT_FIRST_DEPENDANT);
+        if (members >= 3) {
+            BigDecimal additional = SarsTaxTables.MEDICAL_CREDIT_ADDITIONAL_DEPENDANT
+                    .multiply(BigDecimal.valueOf(members - 2));
+            monthly = monthly.add(additional);
+        }
+        return monthly.setScale(2, RoundingMode.HALF_UP);
     }
 
     private BigDecimal computeUif(BigDecimal grossAnnual) {

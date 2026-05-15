@@ -26,5 +26,9 @@ class SarsTaxTables {
     static final BigDecimal UIF_MONTHLY_REMUNERATION_CAP = new BigDecimal("17712");
     static final BigDecimal UIF_RATE                     = new BigDecimal("0.01");
 
+    static final BigDecimal MEDICAL_CREDIT_MAIN_MEMBER          = new BigDecimal("364");
+    static final BigDecimal MEDICAL_CREDIT_FIRST_DEPENDANT      = new BigDecimal("364");
+    static final BigDecimal MEDICAL_CREDIT_ADDITIONAL_DEPENDANT = new BigDecimal("246");
+
     private SarsTaxTables() {}
 }

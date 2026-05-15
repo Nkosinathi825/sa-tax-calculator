@@ -14,6 +14,8 @@ public class TaxCalculationResponse {
     private BigDecimal annualTax;
     private BigDecimal monthlyPaye;
     private BigDecimal uifMonthly;
+    private BigDecimal medicalAidCreditMonthly;
+    private BigDecimal medicalAidCreditAnnual;
     private BigDecimal netMonthly;
     private BigDecimal effectiveTaxRate;
 }
