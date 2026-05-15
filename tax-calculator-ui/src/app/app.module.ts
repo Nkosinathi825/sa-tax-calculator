@@ -11,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -36,6 +37,7 @@ import { TaxResultsComponent } from './components/tax-results/tax-results.compon
     MatButtonModule,
     MatProgressSpinnerModule,
     MatDividerModule,
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

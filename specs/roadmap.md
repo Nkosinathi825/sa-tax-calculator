@@ -43,9 +43,14 @@ Phases are intentionally small — each should be completable in a single focuse
 - [ ] Single `mvn package` produces a self-contained JAR that serves the full app
 - [ ] Update README with setup and run instructions
 
+## Phase 6 — Dark Mode Toggle
+- [ ] Add light / dark theme toggle button to the Angular toolbar
+- [ ] Define SCSS-based light and dark Material themes in styles.scss
+- [ ] Toggle a `.dark-theme` class on the body to switch themes at runtime
+- [ ] Persist the user's preference in localStorage across page reloads
+
 ## Icebox (future ideas, not committed)
 - Retirement annuity (RA) deduction calculator
 - Travel allowance and car benefit tax
 - Compare two salary scenarios side by side
 - Annual salary-to-hourly rate converter
-- Dark mode toggle
