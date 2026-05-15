@@ -1,0 +1,67 @@
+.result-section {
+  padding: 8px 0;
+}
+
+.section-heading {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #666;
+  margin: 12px 0 8px;
+}
+
+.result-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px solid #f0f0f0;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  .label {
+    color: #555;
+    font-size: 14px;
+  }
+
+  .value {
+    font-weight: 500;
+    font-size: 14px;
+  }
+
+  .deduction {
+    color: #d32f2f;
+  }
+
+  .credit {
+    color: #388e3c;
+  }
+
+  &.highlight .value {
+    font-size: 16px;
+    color: #1565c0;
+  }
+
+  &.net {
+    margin-top: 4px;
+
+    .label {
+      font-weight: 600;
+      font-size: 15px;
+      color: #333;
+    }
+
+    .value {
+      font-size: 18px;
+      font-weight: 700;
+      color: #2e7d32;
+    }
+  }
+}
+
+.inner-divider {
+  margin: 8px 0;
+}

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TaxCalculationResponse } from './models/tax.models';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'tax-calculator-ui';
+  result: TaxCalculationResponse | null = null;
+
+  onCalculated(result: TaxCalculationResponse): void {
+    this.result = result;
+  }
 }
